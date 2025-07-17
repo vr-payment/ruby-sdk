@@ -1,0 +1,488 @@
+=begin
+The VR Payment API allows an easy interaction with the VR Payment web service.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+=end
+
+require 'date'
+
+module VRPayment
+  # 
+  class ChargeAttempt
+    # The charge that the charge attempt belongs to.
+    attr_accessor :charge
+
+    # The behavior that controls when the transaction is completed.
+    attr_accessor :completion_behavior
+
+    # The payment connector configuration that was used for the charge attempt.
+    attr_accessor :connector_configuration
+
+    # The date and time when the object was created.
+    attr_accessor :created_on
+
+    # The customer's presence indicates whether and in what way the charge attempt's customer is present.
+    attr_accessor :customers_presence
+
+    # The environment in which the charge attempt is executed.
+    attr_accessor :environment
+
+    # The date and time when the charge attempt failed.
+    attr_accessor :failed_on
+
+    # The reason for the failure of the charge attempt.
+    attr_accessor :failure_reason
+
+    # A unique identifier for the object.
+    attr_accessor :id
+
+    # Whether a new token version is being initialized.
+    attr_accessor :initializing_token_version
+
+    # The connector invocation that the charge attempt belongs to.
+    attr_accessor :invocation
+
+    # The labels providing additional information about the object.
+    attr_accessor :labels
+
+    # The language that is linked to the object.
+    attr_accessor :language
+
+    # The ID of the space this object belongs to.
+    attr_accessor :linked_space_id
+
+    # The payment transaction this object is linked to.
+    attr_accessor :linked_transaction
+
+    # The date and time when the next update of the object's state is planned.
+    attr_accessor :next_update_on
+
+    # The date and time when the object is planned to be permanently removed. If the value is empty, the object will not be removed.
+    attr_accessor :planned_purge_date
+
+    # The URL to redirect the customer to after payment processing.
+    attr_accessor :redirection_url
+
+    # The sales channel through which the charge attempt was made.
+    attr_accessor :sales_channel
+
+    # The ID of the space view this object is linked to.
+    attr_accessor :space_view_id
+
+    # The object's current state.
+    attr_accessor :state
+
+    # The date and time when the charge attempt succeeded.
+    attr_accessor :succeeded_on
+
+    # The payment terminal through which the charge attempt was made.
+    attr_accessor :terminal
+
+    # The time zone that this object is associated with.
+    attr_accessor :time_zone
+
+    # The date and time when the object will expire.
+    attr_accessor :timeout_on
+
+    # The token version used for the charge attempt.
+    attr_accessor :token_version
+
+    # The message that can be displayed to the customer explaining why the charge attempt failed, in the customer's language.
+    attr_accessor :user_failure_message
+
+    # The version is used for optimistic locking and incremented whenever the object is updated.
+    attr_accessor :version
+
+    # The type of wallet used to make the charge attempt.
+    attr_accessor :wallet
+
+    # Attribute mapping from ruby-style variable name to JSON key.
+    def self.attribute_map
+      {
+        :'charge' => :'charge',
+        :'completion_behavior' => :'completionBehavior',
+        :'connector_configuration' => :'connectorConfiguration',
+        :'created_on' => :'createdOn',
+        :'customers_presence' => :'customersPresence',
+        :'environment' => :'environment',
+        :'failed_on' => :'failedOn',
+        :'failure_reason' => :'failureReason',
+        :'id' => :'id',
+        :'initializing_token_version' => :'initializingTokenVersion',
+        :'invocation' => :'invocation',
+        :'labels' => :'labels',
+        :'language' => :'language',
+        :'linked_space_id' => :'linkedSpaceId',
+        :'linked_transaction' => :'linkedTransaction',
+        :'next_update_on' => :'nextUpdateOn',
+        :'planned_purge_date' => :'plannedPurgeDate',
+        :'redirection_url' => :'redirectionUrl',
+        :'sales_channel' => :'salesChannel',
+        :'space_view_id' => :'spaceViewId',
+        :'state' => :'state',
+        :'succeeded_on' => :'succeededOn',
+        :'terminal' => :'terminal',
+        :'time_zone' => :'timeZone',
+        :'timeout_on' => :'timeoutOn',
+        :'token_version' => :'tokenVersion',
+        :'user_failure_message' => :'userFailureMessage',
+        :'version' => :'version',
+        :'wallet' => :'wallet'
+      }
+    end
+
+    # Attribute type mapping.
+    def self.swagger_types
+      {
+        :'charge' => :'Charge',
+        :'completion_behavior' => :'TransactionCompletionBehavior',
+        :'connector_configuration' => :'PaymentConnectorConfiguration',
+        :'created_on' => :'DateTime',
+        :'customers_presence' => :'CustomersPresence',
+        :'environment' => :'ChargeAttemptEnvironment',
+        :'failed_on' => :'DateTime',
+        :'failure_reason' => :'FailureReason',
+        :'id' => :'Integer',
+        :'initializing_token_version' => :'BOOLEAN',
+        :'invocation' => :'ConnectorInvocation',
+        :'labels' => :'Array<Label>',
+        :'language' => :'String',
+        :'linked_space_id' => :'Integer',
+        :'linked_transaction' => :'Integer',
+        :'next_update_on' => :'DateTime',
+        :'planned_purge_date' => :'DateTime',
+        :'redirection_url' => :'String',
+        :'sales_channel' => :'Integer',
+        :'space_view_id' => :'Integer',
+        :'state' => :'ChargeAttemptState',
+        :'succeeded_on' => :'DateTime',
+        :'terminal' => :'PaymentTerminal',
+        :'time_zone' => :'String',
+        :'timeout_on' => :'DateTime',
+        :'token_version' => :'TokenVersion',
+        :'user_failure_message' => :'String',
+        :'version' => :'Integer',
+        :'wallet' => :'WalletType'
+      }
+    end
+
+    # Initializes the object
+    # @param [Hash] attributes Model attributes in the form of hash
+    def initialize(attributes = {})
+      return unless attributes.is_a?(Hash)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      if attributes.has_key?(:'charge')
+        self.charge = attributes[:'charge']
+      end
+
+      if attributes.has_key?(:'completionBehavior')
+        self.completion_behavior = attributes[:'completionBehavior']
+      end
+
+      if attributes.has_key?(:'connectorConfiguration')
+        self.connector_configuration = attributes[:'connectorConfiguration']
+      end
+
+      if attributes.has_key?(:'createdOn')
+        self.created_on = attributes[:'createdOn']
+      end
+
+      if attributes.has_key?(:'customersPresence')
+        self.customers_presence = attributes[:'customersPresence']
+      end
+
+      if attributes.has_key?(:'environment')
+        self.environment = attributes[:'environment']
+      end
+
+      if attributes.has_key?(:'failedOn')
+        self.failed_on = attributes[:'failedOn']
+      end
+
+      if attributes.has_key?(:'failureReason')
+        self.failure_reason = attributes[:'failureReason']
+      end
+
+      if attributes.has_key?(:'id')
+        self.id = attributes[:'id']
+      end
+
+      if attributes.has_key?(:'initializingTokenVersion')
+        self.initializing_token_version = attributes[:'initializingTokenVersion']
+      end
+
+      if attributes.has_key?(:'invocation')
+        self.invocation = attributes[:'invocation']
+      end
+
+      if attributes.has_key?(:'labels')
+        if (value = attributes[:'labels']).is_a?(Array)
+          self.labels = value
+        end
+      end
+
+      if attributes.has_key?(:'language')
+        self.language = attributes[:'language']
+      end
+
+      if attributes.has_key?(:'linkedSpaceId')
+        self.linked_space_id = attributes[:'linkedSpaceId']
+      end
+
+      if attributes.has_key?(:'linkedTransaction')
+        self.linked_transaction = attributes[:'linkedTransaction']
+      end
+
+      if attributes.has_key?(:'nextUpdateOn')
+        self.next_update_on = attributes[:'nextUpdateOn']
+      end
+
+      if attributes.has_key?(:'plannedPurgeDate')
+        self.planned_purge_date = attributes[:'plannedPurgeDate']
+      end
+
+      if attributes.has_key?(:'redirectionUrl')
+        self.redirection_url = attributes[:'redirectionUrl']
+      end
+
+      if attributes.has_key?(:'salesChannel')
+        self.sales_channel = attributes[:'salesChannel']
+      end
+
+      if attributes.has_key?(:'spaceViewId')
+        self.space_view_id = attributes[:'spaceViewId']
+      end
+
+      if attributes.has_key?(:'state')
+        self.state = attributes[:'state']
+      end
+
+      if attributes.has_key?(:'succeededOn')
+        self.succeeded_on = attributes[:'succeededOn']
+      end
+
+      if attributes.has_key?(:'terminal')
+        self.terminal = attributes[:'terminal']
+      end
+
+      if attributes.has_key?(:'timeZone')
+        self.time_zone = attributes[:'timeZone']
+      end
+
+      if attributes.has_key?(:'timeoutOn')
+        self.timeout_on = attributes[:'timeoutOn']
+      end
+
+      if attributes.has_key?(:'tokenVersion')
+        self.token_version = attributes[:'tokenVersion']
+      end
+
+      if attributes.has_key?(:'userFailureMessage')
+        self.user_failure_message = attributes[:'userFailureMessage']
+      end
+
+      if attributes.has_key?(:'version')
+        self.version = attributes[:'version']
+      end
+
+      if attributes.has_key?(:'wallet')
+        self.wallet = attributes[:'wallet']
+      end
+    end
+
+    # Show invalid properties with the reasons. Usually used together with valid?
+    # @return Array for valid properties with the reasons
+    def list_invalid_properties
+      invalid_properties = Array.new
+      if !@user_failure_message.nil? && @user_failure_message.to_s.length > 2000
+        invalid_properties.push('invalid value for "user_failure_message", the character length must be smaller than or equal to 2000.')
+      end
+
+      invalid_properties
+    end
+
+    # Check to see if the all the properties in the model are valid
+    # @return true if the model is valid
+    def valid?
+      return false if !@user_failure_message.nil? && @user_failure_message.to_s.length > 2000
+      true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] user_failure_message Value to be assigned
+    def user_failure_message=(user_failure_message)
+      if !user_failure_message.nil? && user_failure_message.to_s.length > 2000
+        fail ArgumentError, 'invalid value for "user_failure_message", the character length must be smaller than or equal to 2000.'
+      end
+
+      @user_failure_message = user_failure_message
+    end
+
+    # Checks equality by comparing each attribute.
+    # @param [Object] Object to be compared
+    def ==(o)
+      return true if self.equal?(o)
+      self.class == o.class &&
+          charge == o.charge &&
+          completion_behavior == o.completion_behavior &&
+          connector_configuration == o.connector_configuration &&
+          created_on == o.created_on &&
+          customers_presence == o.customers_presence &&
+          environment == o.environment &&
+          failed_on == o.failed_on &&
+          failure_reason == o.failure_reason &&
+          id == o.id &&
+          initializing_token_version == o.initializing_token_version &&
+          invocation == o.invocation &&
+          labels == o.labels &&
+          language == o.language &&
+          linked_space_id == o.linked_space_id &&
+          linked_transaction == o.linked_transaction &&
+          next_update_on == o.next_update_on &&
+          planned_purge_date == o.planned_purge_date &&
+          redirection_url == o.redirection_url &&
+          sales_channel == o.sales_channel &&
+          space_view_id == o.space_view_id &&
+          state == o.state &&
+          succeeded_on == o.succeeded_on &&
+          terminal == o.terminal &&
+          time_zone == o.time_zone &&
+          timeout_on == o.timeout_on &&
+          token_version == o.token_version &&
+          user_failure_message == o.user_failure_message &&
+          version == o.version &&
+          wallet == o.wallet
+    end
+
+    # @see the `==` method
+    # @param [Object] Object to be compared
+    def eql?(o)
+      self == o
+    end
+
+    # Calculates hash code according to all attributes.
+    # @return [Fixnum] Hash code
+    def hash
+      [charge, completion_behavior, connector_configuration, created_on, customers_presence, environment, failed_on, failure_reason, id, initializing_token_version, invocation, labels, language, linked_space_id, linked_transaction, next_update_on, planned_purge_date, redirection_url, sales_channel, space_view_id, state, succeeded_on, terminal, time_zone, timeout_on, token_version, user_failure_message, version, wallet].hash
+    end
+
+    # Builds the object from hash
+    # @param [Hash] attributes Model attributes in the form of hash
+    # @return [Object] Returns the model itself
+    def build_from_hash(attributes)
+      return nil unless attributes.is_a?(Hash)
+      self.class.swagger_types.each_pair do |key, type|
+        if type =~ /\AArray<(.*)>/i
+          # check to ensure the input is an array given that the attribute
+          # is documented as an array but the input is not
+          if attributes[self.class.attribute_map[key]].is_a?(Array)
+            self.send("#{key}=", attributes[self.class.attribute_map[key]].map{ |v| _deserialize($1, v) } )
+          end
+        elsif !attributes[self.class.attribute_map[key]].nil?
+          self.send("#{key}=", _deserialize(type, attributes[self.class.attribute_map[key]]))
+        end # or else data not found in attributes(hash), not an issue as the data can be optional
+      end
+
+      self
+    end
+
+    # Deserializes the data based on type
+    # @param string type Data type
+    # @param string value Value to be deserialized
+    # @return [Object] Deserialized data
+    def _deserialize(type, value)
+      case type.to_sym
+      when :DateTime
+        DateTime.parse(value)
+      when :Date
+        Date.parse(value)
+      when :String
+        value.to_s
+      when :Integer
+        value.to_i
+      when :Float
+        value.to_f
+      when :BOOLEAN
+        if value.to_s =~ /\A(true|t|yes|y|1)\z/i
+          true
+        else
+          false
+        end
+      when :Object
+        # generic object (usually a Hash), return directly
+        value
+      when /\AArray<(?<inner_type>.+)>\z/
+        inner_type = Regexp.last_match[:inner_type]
+        value.map { |v| _deserialize(inner_type, v) }
+      when /\AHash<(?<k_type>.+?), (?<v_type>.+)>\z/
+        k_type = Regexp.last_match[:k_type]
+        v_type = Regexp.last_match[:v_type]
+        {}.tap do |hash|
+          value.each do |k, v|
+            hash[_deserialize(k_type, k)] = _deserialize(v_type, v)
+          end
+        end
+      else # model
+        temp_model = VRPayment.const_get(type).new
+        temp_model.build_from_hash(value)
+      end
+    end
+
+    # Returns the string representation of the object
+    # @return [String] String presentation of the object
+    def to_s
+      to_hash.to_s
+    end
+
+    # to_body is an alias to to_hash (backward compatibility)
+    # @return [Hash] Returns the object in the form of hash
+    def to_body
+      to_hash
+    end
+
+    # Returns the object in the form of hash
+    # @return [Hash] Returns the object in the form of hash
+    def to_hash
+      hash = {}
+      self.class.attribute_map.each_pair do |attr, param|
+        value = self.send(attr)
+        next if value.nil?
+        hash[param] = _to_hash(value)
+      end
+      hash
+    end
+
+    # Outputs non-array value in the form of hash
+    # For object, use to_hash. Otherwise, just return the value
+    # @param [Object] value Any valid value
+    # @return [Hash] Returns the value in the form of hash
+    def _to_hash(value)
+      if value.is_a?(Array)
+        value.compact.map{ |v| _to_hash(v) }
+      elsif value.is_a?(Hash)
+        {}.tap do |hash|
+          value.each { |k, v| hash[k] = _to_hash(v) }
+        end
+      elsif value.respond_to? :to_hash
+        value.to_hash
+      else
+        value
+      end
+    end
+
+  end
+end

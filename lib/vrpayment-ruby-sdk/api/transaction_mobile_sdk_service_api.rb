@@ -58,7 +58,7 @@ module VRPayment
       header_params = {}
 
       # HTTP header 'Accept' (if needed)
-      local_header_accept = ['application/json', 'text/plain;charset=utf-8']
+      local_header_accept = ['text/plain;charset=utf-8', 'application/json']
       local_header_accept_result = @api_client.select_header_accept(local_header_accept) and header_params['Accept'] = local_header_accept_result
 
       # HTTP header 'Content-Type'

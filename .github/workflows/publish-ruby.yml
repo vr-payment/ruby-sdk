@@ -18,23 +18,22 @@ permissions:
 jobs:
   test:
     strategy:
-      fail-fast: false
       matrix:
-        os: [ubuntu-20.04]
-        # Due to https://github.com/actions/runner/issues/849, we have to use quotes for '3.0'
+        os: ubuntu-22.04
         ruby: ['3.0', '3.3']
     runs-on: ${{ matrix.os }}
     steps:
+    - name: Run tests
     - uses: actions/checkout@v4
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+        bundler-cache: true
     - run: bundle exec rake
 
   release:
     needs: test
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
     - name: Set up Ruby for release

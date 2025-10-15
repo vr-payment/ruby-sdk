@@ -29,6 +29,9 @@ module VRPayment
     # The payment method configurations that customers can use for making payments.
     attr_accessor :allowed_payment_method_configurations
 
+    # The domains to which the user is allowed to be redirected after the payment is completed. The following options can be configured: Exact domain: enter a full domain, e.g. (https://example.com). Wildcard domain: use to allow subdomains, e.g. (https://*.example.com). All domains: use (ALL) to allow redirection to any domain (not recommended for security reasons). No domains : use (NONE) to disallow any redirection. Only one option per line is allowed. Invalid entries will be rejected. 
+    attr_accessor :allowed_redirection_domains
+
     # The payment link can be used within a specific space view, which may apply a customized design to the payment page.
     attr_accessor :applied_space_view
 
@@ -65,6 +68,7 @@ module VRPayment
         :'id' => :'id',
         :'version' => :'version',
         :'allowed_payment_method_configurations' => :'allowedPaymentMethodConfigurations',
+        :'allowed_redirection_domains' => :'allowedRedirectionDomains',
         :'applied_space_view' => :'appliedSpaceView',
         :'available_from' => :'availableFrom',
         :'available_until' => :'availableUntil',
@@ -84,6 +88,7 @@ module VRPayment
         :'id' => :'Integer',
         :'version' => :'Integer',
         :'allowed_payment_method_configurations' => :'Array<PaymentMethodConfiguration>',
+        :'allowed_redirection_domains' => :'Array<String>',
         :'applied_space_view' => :'Integer',
         :'available_from' => :'DateTime',
         :'available_until' => :'DateTime',
@@ -116,6 +121,12 @@ module VRPayment
       if attributes.has_key?(:'allowedPaymentMethodConfigurations')
         if (value = attributes[:'allowedPaymentMethodConfigurations']).is_a?(Array)
           self.allowed_payment_method_configurations = value
+        end
+      end
+
+      if attributes.has_key?(:'allowedRedirectionDomains')
+        if (value = attributes[:'allowedRedirectionDomains']).is_a?(Array)
+          self.allowed_redirection_domains = value
         end
       end
 
@@ -208,6 +219,7 @@ module VRPayment
           id == o.id &&
           version == o.version &&
           allowed_payment_method_configurations == o.allowed_payment_method_configurations &&
+          allowed_redirection_domains == o.allowed_redirection_domains &&
           applied_space_view == o.applied_space_view &&
           available_from == o.available_from &&
           available_until == o.available_until &&
@@ -229,7 +241,7 @@ module VRPayment
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, version, allowed_payment_method_configurations, applied_space_view, available_from, available_until, billing_address_handling_mode, currency, language, line_items, maximal_number_of_transactions, name, shipping_address_handling_mode].hash
+      [id, version, allowed_payment_method_configurations, allowed_redirection_domains, applied_space_view, available_from, available_until, billing_address_handling_mode, currency, language, line_items, maximal_number_of_transactions, name, shipping_address_handling_mode].hash
     end
 
     # Builds the object from hash

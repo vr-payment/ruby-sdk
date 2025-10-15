@@ -16,5 +16,5 @@ limitations under the License.
 =end
 
 module VRPayment
-  VERSION = '5.1.0'
+  VERSION = '5.2.0'
 end

@@ -21,6 +21,7 @@ module VRPayment
   class PanType
     
     PLAIN = 'PLAIN'.freeze
+    PLAIN_GOOGLE_PAY = 'PLAIN_GOOGLE_PAY'.freeze
     SCHEME_TOKEN = 'SCHEME_TOKEN'.freeze
     SCHEME_TOKEN_CLICK_TO_PAY = 'SCHEME_TOKEN_CLICK_TO_PAY'.freeze
     DEVICE_TOKEN_APPLE_PAY = 'DEVICE_TOKEN_APPLE_PAY'.freeze

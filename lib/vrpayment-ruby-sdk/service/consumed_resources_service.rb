@@ -1,3 +1,4 @@
+=begin
 # VR Payment Ruby SDK
 #
 # This library allows to interact with the VR Payment payment service.
@@ -17,6 +18,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+=end
 
 require 'cgi'
 
@@ -71,7 +73,7 @@ module VrpaymentRubySdk
       query_params = opts[:query_params] || {}
       query_params[:'startDate'] = start_date
       query_params[:'endDate'] = end_date
-      query_params[:'expand'] = @api_client.build_collection_param(opts[:'expand'], :multi) unless opts[:'expand'].nil?
+      query_params[:'expand'] = @api_client.build_collection_param(opts[:'expand'], :multi) if !opts[:'expand'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}

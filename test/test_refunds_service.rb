@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+=begin
 # VR Payment Ruby SDK
 #
 # This library allows to interact with the VR Payment payment service.
@@ -19,6 +20,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+=end
 
 require 'test/unit'
 require 'vrpayment-ruby-sdk'
@@ -42,7 +44,7 @@ class RefundsServiceTest < Test::Unit::TestCase
       transaction.id, SPACE_ID, MOCK_CARD_DATA
     )
 
-    transaction_completion = @transactions_service.post_payment_transactions_id_complete_offline(
+    transaction_completion = @transactions_service.post_payment_transactions_id_complete_online(
       transaction.id, SPACE_ID
     )
 
@@ -79,7 +81,7 @@ class RefundsServiceTest < Test::Unit::TestCase
       transaction.id, SPACE_ID, MOCK_CARD_DATA
     )
 
-    @transactions_service.post_payment_transactions_id_complete_offline(
+    @transactions_service.post_payment_transactions_id_complete_online(
       transaction.id, SPACE_ID
     )
 

@@ -113,7 +113,7 @@ module VrpaymentRubySdk
           public_key = CACHE[public_key_id]
         else
           fetched_key, = get_webhooks_encryption_keys_id_with_http_info(public_key_id)
-          raise VRPaymentSdkException.new(ErrorCode::UNKNOWN_WEBHOOK_ENCRYPTION_PUBLIC_KEY,
+          raise VRPaymentSdkException.new(SdkExceptionErrorCodes::UNKNOWN_WEBHOOK_ENCRYPTION_PUBLIC_KEY,
           "Could not retrieve public key with ID: #{public_key_id}") if fetched_key.nil? || fetched_key.strip.empty?
 
           CACHE[public_key_id] = fetched_key
@@ -127,7 +127,7 @@ module VrpaymentRubySdk
         signature_algorithm
       )
       else
-        raise VRPaymentSdkException.new(ErrorCode::INVALID_WEBHOOK_ENCRYPTION_HEADER_FORMAT,
+        raise VRPaymentSdkException.new(SdkExceptionErrorCodes::INVALID_WEBHOOK_ENCRYPTION_HEADER_FORMAT,
         "Invalid webhook encryption header format. Expected format: 'algorithm=<algorithm>, keyId=<keyId>, signature=<signature>'")
       end
     end
